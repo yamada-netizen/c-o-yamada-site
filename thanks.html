@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>送信完了｜Consulting Office YAMADA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #0d4a2e;
+      --color-primary-dark: #082a1a;
+      --color-accent: #d4af37;
+      --color-text: #1a2e1f;
+      --color-bg: #f5f9f6;
+      --color-white: #ffffff;
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Noto Sans JP', sans-serif;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+    .thanks-container {
+      background: var(--color-white);
+      border-radius: 24px;
+      padding: 4rem 3rem;
+      max-width: 600px;
+      box-shadow: 0 20px 60px rgba(13, 74, 46, 0.1);
+    }
+    .thanks-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--color-primary) 0%, #1a6b42 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+    }
+    .thanks-icon svg {
+      width: 40px;
+      height: 40px;
+      stroke: var(--color-accent);
+      stroke-width: 2.5;
+      fill: none;
+    }
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1rem;
+      color: var(--color-text);
+      line-height: 1.9;
+      margin-bottom: 2rem;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--color-accent) 0%, #f5e6b8 100%);
+      color: var(--color-primary-dark);
+      padding: 1rem 2rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+    .back-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+    }
+    .back-link svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      fill: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="thanks-container">
+    <div class="thanks-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h1>お問い合わせありがとうございます</h1>
+    <p>
+      メッセージを受け付けました。<br>
+      内容を確認の上、2〜3営業日以内にご連絡いたします。<br>
+      しばらくお待ちください。
+    </p>
+    <a href="/" class="back-link">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 12H5m0 0l7 7m-7-7l7-7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      トップページに戻る
+    </a>
+  </div>
+</body>
+</html>
