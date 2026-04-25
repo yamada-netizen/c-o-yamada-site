@@ -1,5 +1,92 @@
 /* CONTACT + FOOTER */
 
+function ContactForm() {
+  const [name, setName] = React.useState('');
+  const [company, setCompany] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [topic, setTopic] = React.useState('経営伴走');
+  const [message, setMessage] = React.useState('');
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const subject = `[HP問い合わせ] ${topic} - ${company || name}`;
+    const body =
+`お名前： ${name}
+会社名： ${company}
+メール： ${email}
+ご相談内容： ${topic}
+
+【ご相談内容詳細】
+${message}
+
+---
+(c-o-yamada.com のお問い合わせフォームから送信)`;
+    const mailto = `mailto:yamada@os-coy.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+  }
+
+  const inputStyle = {
+    width: '100%',
+    padding: '12px 14px',
+    background: 'rgba(255,255,255,.06)',
+    border: '1px solid rgba(255,255,255,.18)',
+    color: 'var(--paper)',
+    fontSize: 14,
+    fontFamily: 'inherit',
+    borderRadius: 0,
+    outline: 'none',
+    transition: 'border-color .25s',
+  };
+  const labelStyle = {
+    display: 'block', fontSize: 11, letterSpacing: '.1em',
+    color: 'var(--gold-500)', marginBottom: 8, fontWeight: 500,
+  };
+
+  return (
+    <form onSubmit={handleSubmit} style={{ marginTop: 8 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+        <div>
+          <label style={labelStyle}>お名前 <span style={{ color: '#f08' }}>*</span></label>
+          <input required type="text" value={name} onChange={(e) => setName(e.target.value)} style={inputStyle}/>
+        </div>
+        <div>
+          <label style={labelStyle}>会社名</label>
+          <input type="text" value={company} onChange={(e) => setCompany(e.target.value)} style={inputStyle}/>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: 16 }}>
+        <label style={labelStyle}>メールアドレス <span style={{ color: '#f08' }}>*</span></label>
+        <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} style={inputStyle}/>
+      </div>
+
+      <div style={{ marginBottom: 16 }}>
+        <label style={labelStyle}>ご相談内容</label>
+        <select value={topic} onChange={(e) => setTopic(e.target.value)} style={inputStyle}>
+          <option>経営伴走</option>
+          <option>405事業(経営改善計画)</option>
+          <option>財務研修</option>
+          <option>その他</option>
+        </select>
+      </div>
+
+      <div style={{ marginBottom: 24 }}>
+        <label style={labelStyle}>ご相談内容(自由記述)</label>
+        <textarea value={message} onChange={(e) => setMessage(e.target.value)} rows={5}
+          placeholder="現状の課題や、検討中のテーマがあればご記入ください" style={{ ...inputStyle, resize: 'vertical', minHeight: 100 }}/>
+      </div>
+
+      <button type="submit" className="btn btn-gold" style={{ border: 'none', cursor: 'pointer' }}>
+        メールを送信する <span className="arrow"></span>
+      </button>
+      <div style={{ fontSize: 11, color: 'rgba(255,255,255,.5)', marginTop: 12, lineHeight: 1.7 }}>
+        ※ ご利用のメールソフトが起動し、入力内容を本文に転記したメール下書きが開きます。
+        内容をご確認の上、送信してください。
+      </div>
+    </form>
+  );
+}
+
 function Contact() {
   return (
     <section className="section dark" id="contact" style={{ padding: '160px 48px 120px', position: 'relative', overflow: 'hidden' }}>
@@ -31,61 +118,61 @@ function Contact() {
             />
 
             <Reveal delay={800}>
-              <p style={{ fontSize: 17, lineHeight: 2.1, color: 'rgba(255,255,255,.75)', maxWidth: 480, marginBottom: 56 }}>
+              <p style={{ fontSize: 17, lineHeight: 2.1, color: 'rgba(255,255,255,.75)', maxWidth: 480, marginBottom: 36 }}>
                 経営課題は一社一社異なります。<br/>
                 現状をお聞かせいただき、最適な支援の形をご提案します。
               </p>
             </Reveal>
 
+            {/* 連絡先一覧(Email/Office) */}
             <Reveal delay={1000}>
-              <a className="btn btn-gold" href="mailto:yamada@os-coy.com">
-                無料相談を申し込む <span className="arrow"></span>
-              </a>
+              <div style={{ marginBottom: 24 }}>
+                <div style={{
+                  display: 'grid', gridTemplateColumns: '110px 1fr',
+                  padding: '20px 0',
+                  borderTop: '1px solid rgba(255,255,255,.18)',
+                  borderBottom: '1px solid rgba(255,255,255,.18)',
+                  alignItems: 'baseline',
+                }}>
+                  <div className="seq-num" style={{ color: 'var(--gold-500)' }}>— Email</div>
+                  <div>
+                    <a href="mailto:yamada@os-coy.com" className="link-underline serif" style={{
+                      fontSize: 22, fontWeight: 500, color: 'var(--paper)',
+                    }}>
+                      yamada@os-coy.com
+                    </a>
+                    <div style={{ fontSize: 12, color: 'rgba(255,255,255,.55)', marginTop: 6 }}>
+                      24時間受付・原則翌営業日までに返信
+                    </div>
+                  </div>
+                </div>
+                <div style={{
+                  display: 'grid', gridTemplateColumns: '110px 1fr',
+                  padding: '20px 0',
+                  borderBottom: '1px solid rgba(255,255,255,.18)',
+                  alignItems: 'baseline',
+                }}>
+                  <div className="seq-num" style={{ color: 'var(--gold-500)' }}>— Office</div>
+                  <div>
+                    <div className="serif" style={{ fontSize: 18, fontWeight: 500, color: 'var(--paper)' }}>
+                      コンサルティングオフィス山田
+                    </div>
+                    <div style={{ fontSize: 12, color: 'rgba(255,255,255,.55)', marginTop: 6 }}>
+                      群馬県太田市 — オンライン対応可
+                    </div>
+                  </div>
+                </div>
+              </div>
             </Reveal>
           </div>
 
           <div>
-            {[
-              {
-                k: 'Email', v: 'yamada@os-coy.com', sub: '24時間受付・原則翌営業日までに返信',
-                href: 'mailto:yamada@os-coy.com',
-              },
-              {
-                k: 'Office', v: 'コンサルティングオフィス山田', sub: '群馬県太田市 — オンライン対応可',
-              },
-              {
-                k: 'Form', v: 'お問い合わせフォーム', sub: '経営伴走 / 405事業 / 財務研修 / その他',
-              },
-            ].map((row, i) => (
-              <Reveal key={i} delay={i * 140}>
-                <div style={{
-                  display: 'grid', gridTemplateColumns: '110px 1fr 24px',
-                  padding: '28px 0',
-                  borderTop: i === 0 ? '1px solid rgba(255,255,255,.18)' : 'none',
-                  borderBottom: '1px solid rgba(255,255,255,.18)',
-                  alignItems: 'baseline',
-                }}>
-                  <div className="seq-num" style={{ color: 'var(--gold-500)' }}>— {row.k}</div>
-                  <div>
-                    {row.href ? (
-                      <a href={row.href} className="link-underline serif" style={{
-                        fontSize: 28, fontWeight: 500, color: 'var(--paper)', letterSpacing: '-0.01em',
-                      }}>
-                        {row.v}
-                      </a>
-                    ) : (
-                      <div className="serif" style={{ fontSize: 22, fontWeight: 500, color: 'var(--paper)' }}>
-                        {row.v}
-                      </div>
-                    )}
-                    <div style={{ fontSize: 12, color: 'rgba(255,255,255,.55)', marginTop: 6, lineHeight: 1.7 }}>
-                      {row.sub}
-                    </div>
-                  </div>
-                  <div style={{ color: 'var(--gold-500)', fontSize: 18, textAlign: 'right' }}>→</div>
-                </div>
-              </Reveal>
-            ))}
+            <Reveal delay={300}>
+              <div className="seq-num" style={{ color: 'var(--gold-500)', marginBottom: 22, fontSize: 12 }}>
+                — Form / お問い合わせフォーム
+              </div>
+              <ContactForm/>
+            </Reveal>
           </div>
         </div>
       </div>
@@ -153,5 +240,6 @@ function Footer() {
   );
 }
 
+window.ContactForm = ContactForm;
 window.Contact = Contact;
 window.Footer = Footer;
