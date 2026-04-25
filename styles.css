@@ -720,6 +720,52 @@ body { overflow-x: hidden; }
 }
 
 
+/* ===== Contact form (dark section) ===== */
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.28);
+  color: #ffffff;
+  font-size: 14px;
+  font-family: inherit;
+  border-radius: 0;
+  outline: none;
+  transition: border-color .25s, background .25s;
+  -webkit-text-fill-color: #ffffff;  /* Safariのautofill時の文字色固定 */
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(255,255,255,.45);
+}
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  border-color: var(--gold-500);
+  background: rgba(255,255,255,.14);
+}
+.contact-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+/* select 内の選択肢は OS デフォルト(白背景・黒文字)を使う */
+.contact-form select option { color: #14201a; background: #ffffff; }
+
+/* Chrome autofill (黄背景上書き対策) — 文字色を白にし、背景は元のまま見せる */
+.contact-form input:-webkit-autofill,
+.contact-form input:-webkit-autofill:hover,
+.contact-form input:-webkit-autofill:focus,
+.contact-form textarea:-webkit-autofill,
+.contact-form select:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0 1000px rgba(20, 32, 26, 0.95) inset !important;
+  caret-color: #ffffff !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+
 /* =====================================================
    RESPONSIVE / MOBILE  (タブレット ≤960px / スマホ ≤640px)
    インラインstyleを上書きするため !important を多用

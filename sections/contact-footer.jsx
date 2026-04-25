@@ -4,6 +4,7 @@ function ContactForm() {
   const [name, setName] = React.useState('');
   const [company, setCompany] = React.useState('');
   const [email, setEmail] = React.useState('');
+  const [phone, setPhone] = React.useState('');
   const [topic, setTopic] = React.useState('経営伴走');
   const [message, setMessage] = React.useState('');
 
@@ -14,6 +15,7 @@ function ContactForm() {
 `お名前： ${name}
 会社名： ${company}
 メール： ${email}
+電話番号： ${phone}
 ご相談内容： ${topic}
 
 【ご相談内容詳細】
@@ -25,44 +27,39 @@ ${message}
     window.location.href = mailto;
   }
 
-  const inputStyle = {
-    width: '100%',
-    padding: '12px 14px',
-    background: 'rgba(255,255,255,.06)',
-    border: '1px solid rgba(255,255,255,.18)',
-    color: 'var(--paper)',
-    fontSize: 14,
-    fontFamily: 'inherit',
-    borderRadius: 0,
-    outline: 'none',
-    transition: 'border-color .25s',
-  };
   const labelStyle = {
     display: 'block', fontSize: 11, letterSpacing: '.1em',
     color: 'var(--gold-500)', marginBottom: 8, fontWeight: 500,
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginTop: 8 }}>
+    <form onSubmit={handleSubmit} style={{ marginTop: 8 }} className="contact-form">
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
         <div>
           <label style={labelStyle}>お名前 <span style={{ color: '#f08' }}>*</span></label>
-          <input required type="text" value={name} onChange={(e) => setName(e.target.value)} style={inputStyle}/>
+          <input required type="text" value={name} onChange={(e) => setName(e.target.value)}/>
         </div>
         <div>
           <label style={labelStyle}>会社名</label>
-          <input type="text" value={company} onChange={(e) => setCompany(e.target.value)} style={inputStyle}/>
+          <input type="text" value={company} onChange={(e) => setCompany(e.target.value)}/>
         </div>
       </div>
 
-      <div style={{ marginBottom: 16 }}>
-        <label style={labelStyle}>メールアドレス <span style={{ color: '#f08' }}>*</span></label>
-        <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} style={inputStyle}/>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+        <div>
+          <label style={labelStyle}>メールアドレス <span style={{ color: '#f08' }}>*</span></label>
+          <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+        </div>
+        <div>
+          <label style={labelStyle}>電話番号 <span style={{ color: '#f08' }}>*</span></label>
+          <input required type="tel" value={phone} onChange={(e) => setPhone(e.target.value)}
+            placeholder="例: 090-1234-5678"/>
+        </div>
       </div>
 
       <div style={{ marginBottom: 16 }}>
         <label style={labelStyle}>ご相談内容</label>
-        <select value={topic} onChange={(e) => setTopic(e.target.value)} style={inputStyle}>
+        <select value={topic} onChange={(e) => setTopic(e.target.value)}>
           <option>経営伴走</option>
           <option>405事業(経営改善計画)</option>
           <option>財務研修</option>
@@ -73,7 +70,7 @@ ${message}
       <div style={{ marginBottom: 24 }}>
         <label style={labelStyle}>ご相談内容(自由記述)</label>
         <textarea value={message} onChange={(e) => setMessage(e.target.value)} rows={5}
-          placeholder="現状の課題や、検討中のテーマがあればご記入ください" style={{ ...inputStyle, resize: 'vertical', minHeight: 100 }}/>
+          placeholder="現状の課題や、検討中のテーマがあればご記入ください"/>
       </div>
 
       <button type="submit" className="btn btn-gold" style={{ border: 'none', cursor: 'pointer' }}>
