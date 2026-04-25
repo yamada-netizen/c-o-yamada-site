@@ -9,37 +9,39 @@ function ContactForm() {
   const [message, setMessage] = React.useState('');
   const [submitting, setSubmitting] = React.useState(false);
 
-  // ★ ここに Formspree (https://formspree.io) の Endpoint を設定すると
-  //   フォーム送信内容が yamada@os-coy.com に転送されます。
-  //   未設定 (REPLACE_WITH_FORMSPREE_ID のまま) だと送信は試行されますが
-  //   サーバー側で受信されないため、実データは届きません。
-  //   いずれにせよ送信ボタン押下後は thanks.html へ遷移します。
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/REPLACE_WITH_FORMSPREE_ID';
+  // Web3Forms (https://web3forms.com) のアクセスキー
+  // 送信内容は yamada@os-coy.com に転送される
+  const WEB3FORMS_ACCESS_KEY = 'fa9a1b36-2f25-4967-86a0-790a068fe911';
+  const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
 
   async function handleSubmit(e) {
     e.preventDefault();
     setSubmitting(true);
 
-    // 送信内容
     const payload = {
-      name, company, email, phone, topic, message,
-      _subject: `[HP問い合わせ] ${topic} - ${company || name}`,
-      _replyto: email,
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: `[HP問い合わせ] ${topic} - ${company || name}`,
+      from_name: `${company ? company + ' ' : ''}${name}`,
+      replyto: email,
+      // フィールドは Web3Forms の管理画面でも一覧できるよう個別 key で送信
+      お名前: name,
+      会社名: company,
+      メール: email,
+      電話番号: phone,
+      ご相談内容: topic,
+      ご相談内容詳細: message,
     };
 
-    // Formspree (もしくは類似サービス) へ非同期送信。失敗しても thanks 画面へ遷移
     try {
-      await fetch(FORMSPREE_ENDPOINT, {
+      await fetch(WEB3FORMS_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(payload),
       });
     } catch (err) {
-      // ネットワーク失敗等。ログのみ。
       console.warn('contact form submit failed:', err);
     }
 
-    // 成否に関わらず Thanks ページへ
     window.location.href = '/thanks.html';
   }
 
