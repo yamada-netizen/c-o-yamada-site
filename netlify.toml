@@ -1,25 +1,9 @@
-plugins = []
-headers = []
-redirects = []
+[build]
+publish = "."
+functions = "netlify/functions"
 
 [functions]
+  node_bundler = "esbuild"
 
-  [functions."*"]
-
-[build]
-publish = "C:\\Users\\yuich\\Downloads"
-publishOrigin = "default"
-
-  [build.environment]
-
-  [build.processing]
-
-    [build.processing.css]
-
-    [build.processing.html]
-
-    [build.processing.images]
-
-    [build.processing.js]
-
-  [build.services]
+# Netlify は publish ディレクトリ以下を静的配信する。
+# このリポジトリは index.html を root に置くシンプル構成のため publish="."。
