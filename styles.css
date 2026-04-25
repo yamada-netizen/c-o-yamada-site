@@ -837,3 +837,79 @@ body { overflow-x: hidden; }
   .brand .wordmark small { display: none !important; }
 }
 
+/* =====================================================
+   レイアウト個別調整 (≤ 960px)
+   各セクションのインラインGrid/Flexを上書きして縦積みに
+   ===================================================== */
+@media (max-width: 960px) {
+  /* すべてのインラインgrid 2列以上を1列に強制 */
+  [style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+  /* journal は CSS class 側で別途 1列化済 */
+
+  /* Hero: top絶対配置のメタ情報を小さく/位置調整 */
+  #top > div[style*="position: absolute"][style*="top: 40px"],
+  #top > div[style*="position:absolute"][style*="top:40"] {
+    top: 12px !important;
+    left: 16px !important;
+    right: 16px !important;
+    font-size: 9px !important;
+  }
+  /* Hero 内側 grid 強制1列 */
+  #top > div[style*="display: grid"],
+  #top > div[style*="display:grid"] {
+    padding-top: 60px !important;
+    gap: 40px !important;
+  }
+  /* Hero 右側ポートレート: 絶対配置のRepresentative panelを通常配置に */
+  #top .hover-image img {
+    height: 320px !important;
+  }
+  #top div[style*="position: absolute"][style*="bottom: -32"],
+  #top div[style*="position:absolute"][style*="bottom:-32"] {
+    position: static !important;
+    margin-top: 16px !important;
+    max-width: 100% !important;
+    bottom: auto !important;
+    left: auto !important;
+  }
+  /* 黄金マーク (top: -14, right: -14) も収める */
+  #top div[style*="top: -14"],
+  #top div[style*="top:-14"] {
+    display: none !important;
+  }
+
+  /* StatsBand: 4列 → 2列 */
+  .section.dark [style*="repeat(4"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Features 各カードの罫線右側を非表示(縦積みのため) */
+  #features [style*="borderRight"],
+  #features [style*="border-right"] {
+    border-right: none !important;
+  }
+
+  /* スクロールヒント非表示 */
+  .scroll-hint { display: none !important; }
+}
+
+@media (max-width: 640px) {
+  .section.dark [style*="repeat(4"] {
+    grid-template-columns: 1fr !important;
+  }
+  #top .hover-image img { height: 240px !important; }
+  /* Hero タイトルの kinetic 文字サイズ */
+  #top .title-kinetic {
+    font-size: clamp(34px, 9vw, 48px) !important;
+    line-height: 1.25 !important;
+  }
+  /* 全ボタンを縦並びに */
+  #top div[style*="display: flex"][style*="gap: 14"] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+}
+
