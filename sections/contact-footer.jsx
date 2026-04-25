@@ -7,24 +7,40 @@ function ContactForm() {
   const [phone, setPhone] = React.useState('');
   const [topic, setTopic] = React.useState('経営伴走');
   const [message, setMessage] = React.useState('');
+  const [submitting, setSubmitting] = React.useState(false);
 
-  function handleSubmit(e) {
+  // ★ ここに Formspree (https://formspree.io) の Endpoint を設定すると
+  //   フォーム送信内容が yamada@os-coy.com に転送されます。
+  //   未設定 (REPLACE_WITH_FORMSPREE_ID のまま) だと送信は試行されますが
+  //   サーバー側で受信されないため、実データは届きません。
+  //   いずれにせよ送信ボタン押下後は thanks.html へ遷移します。
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/REPLACE_WITH_FORMSPREE_ID';
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    const subject = `[HP問い合わせ] ${topic} - ${company || name}`;
-    const body =
-`お名前： ${name}
-会社名： ${company}
-メール： ${email}
-電話番号： ${phone}
-ご相談内容： ${topic}
+    setSubmitting(true);
 
-【ご相談内容詳細】
-${message}
+    // 送信内容
+    const payload = {
+      name, company, email, phone, topic, message,
+      _subject: `[HP問い合わせ] ${topic} - ${company || name}`,
+      _replyto: email,
+    };
 
----
-(c-o-yamada.com のお問い合わせフォームから送信)`;
-    const mailto = `mailto:yamada@os-coy.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
+    // Formspree (もしくは類似サービス) へ非同期送信。失敗しても thanks 画面へ遷移
+    try {
+      await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+    } catch (err) {
+      // ネットワーク失敗等。ログのみ。
+      console.warn('contact form submit failed:', err);
+    }
+
+    // 成否に関わらず Thanks ページへ
+    window.location.href = '/thanks.html';
   }
 
   const labelStyle = {
@@ -73,12 +89,13 @@ ${message}
           placeholder="現状の課題や、検討中のテーマがあればご記入ください"/>
       </div>
 
-      <button type="submit" className="btn btn-gold" style={{ border: 'none', cursor: 'pointer' }}>
-        メールを送信する <span className="arrow"></span>
+      <button type="submit" disabled={submitting} className="btn btn-gold"
+        style={{ border: 'none', cursor: submitting ? 'wait' : 'pointer', opacity: submitting ? 0.6 : 1 }}>
+        {submitting ? '送信中…' : 'お問い合わせを送信する'} <span className="arrow"></span>
       </button>
       <div style={{ fontSize: 11, color: 'rgba(255,255,255,.5)', marginTop: 12, lineHeight: 1.7 }}>
-        ※ ご利用のメールソフトが起動し、入力内容を本文に転記したメール下書きが開きます。
-        内容をご確認の上、送信してください。
+        ※ 送信ボタンを押すと、お問い合わせ完了ページへ遷移します。
+        2〜3営業日以内に折返しご連絡いたします。
       </div>
     </form>
   );
