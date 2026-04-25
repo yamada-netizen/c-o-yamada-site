@@ -1,4 +1,4 @@
-/* JOURNAL — note の最新記事3件を Netlify Function 経由で取得 */
+/* JOURNAL — posts.json (GitHub Actions が note RSS から定期生成) を読み込む */
 
 function Journal() {
   const [posts, setPosts] = React.useState(null);
@@ -6,7 +6,8 @@ function Journal() {
 
   React.useEffect(() => {
     let cancelled = false;
-    fetch('/.netlify/functions/note-rss?user=fast_sorrel6694')
+    // キャッシュバスター付きで posts.json を取得
+    fetch('/posts.json?t=' + Date.now())
       .then((r) => r.json())
       .then((data) => {
         if (cancelled) return;
