@@ -718,3 +718,122 @@ body { overflow-x: hidden; }
   transition: transform .35s cubic-bezier(.2,.7,.2,1);
   font-size: 16px;
 }
+
+
+/* =====================================================
+   RESPONSIVE / MOBILE  (タブレット ≤960px / スマホ ≤640px)
+   インラインstyleを上書きするため !important を多用
+   ===================================================== */
+
+/* ---- タブレット以下 ≤ 960px ---- */
+@media (max-width: 960px) {
+  .top-bar {
+    flex-wrap: wrap !important;
+    padding: 8px 16px !important;
+    gap: 6px !important;
+    font-size: 11px !important;
+  }
+  .top-bar .badges {
+    flex-wrap: wrap !important;
+    gap: 6px 10px !important;
+  }
+  .top-bar .meta { display: none !important; }
+
+  .site-header .inner,
+  .sticky-header .inner,
+  .header .inner {
+    padding: 14px 18px !important;
+    flex-wrap: wrap !important;
+  }
+  .nav-links { display: none !important; }
+  .header-cta {
+    padding: 8px 14px !important;
+    font-size: 12px !important;
+  }
+  .brand .wordmark {
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+  }
+  .brand .wordmark small { font-size: 10px !important; }
+
+  /* セクション全般のパディング縮小 */
+  section,
+  section.section,
+  section[id] {
+    padding: 72px 20px !important;
+  }
+
+  /* グリッド類を1〜2列に */
+  .features-grid,
+  .cases-grid,
+  .service-grid,
+  .seminar-grid,
+  .business-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  .journal-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+
+  /* 見出しを縮小 */
+  h1, .hero-title { font-size: clamp(40px, 9vw, 60px) !important; }
+  h2, .section-title { font-size: clamp(28px, 5.5vw, 38px) !important; }
+  h3 { font-size: 18px !important; }
+
+  /* 本文の最大幅指定を緩和 */
+  p { max-width: 100% !important; }
+
+  /* 横スクロール防止 */
+  body, html { overflow-x: hidden !important; }
+}
+
+/* ---- スマホ ≤ 640px ---- */
+@media (max-width: 640px) {
+  .top-bar { font-size: 10px !important; }
+  .top-bar .badges span { padding: 2px 6px !important; }
+
+  section,
+  section.section,
+  section[id] {
+    padding: 56px 16px !important;
+  }
+
+  /* ヒーロー */
+  #top { min-height: 80vh !important; }
+  h1, .hero-title { font-size: clamp(32px, 10vw, 48px) !important; line-height: 1.15 !important; }
+  h2, .section-title { font-size: clamp(24px, 6vw, 32px) !important; }
+
+  /* カード・パネルの内側padding */
+  .feature-card,
+  .case-card,
+  .seminar-card,
+  .service-card,
+  .business-card,
+  .journal-card { padding: 0 !important; }
+  .journal-body { padding: 20px 18px 22px !important; }
+
+  /* About等で並列レイアウトを縦積みに */
+  [style*="display: flex"][style*="gap"] {
+    flex-wrap: wrap !important;
+  }
+
+  /* contact ヒーロー */
+  #contact h2 { font-size: clamp(36px, 9vw, 56px) !important; }
+
+  /* ボタン */
+  .header-cta {
+    padding: 7px 12px !important;
+    font-size: 11px !important;
+  }
+}
+
+/* ---- 極小 ≤ 380px ---- */
+@media (max-width: 380px) {
+  section,
+  section.section,
+  section[id] { padding: 44px 12px !important; }
+
+  .brand img { width: 30px !important; height: 30px !important; }
+  .brand .wordmark { font-size: 12px !important; }
+  .brand .wordmark small { display: none !important; }
+}
+
